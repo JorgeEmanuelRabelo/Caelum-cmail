@@ -9,9 +9,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class CadastroComponent implements OnInit {
 
   formCadastro = new FormGroup({
-    nome: new FormControl('', [Validators.required]),
-    username: new FormControl('', [Validators.required]),
-    senha: new FormControl('', [Validators.required]),
+    nome: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]),
+    username: new FormControl('', [
+      Validators.required
+    ]),
+    senha: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.pattern('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/')
+    ]),
     avatar: new FormControl('')
   })
 
@@ -21,9 +27,20 @@ export class CadastroComponent implements OnInit {
   }
 
   handleCadastroUsuario() {
-    if (this.formCadastro.valid)
-      console.log(this.formCadastro.value);
-    else
-      console.log('campos invalidos!')
+    if (this.formCadastro.valid) {
+      this.formCadastro.reset();
+    } else {
+      this.validaCamposFormulario();
+    }
+  }
+
+  validaCamposFormulario() {
+    this.formCadastro.markAllAsTouched();
+    // const camposForm = this.formCadastro.controus
+    // Object.keys(camposForm).forEach(f => {
+    //   const control = this.formCadastro.get(f);
+    //   control.markAsTouched({ onlySelf: true });
+    // });
+
   }
 }

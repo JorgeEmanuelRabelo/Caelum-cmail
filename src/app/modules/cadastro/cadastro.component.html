@@ -7,7 +7,11 @@
           <cmail-form-group [campo]="formCadastro.get('nome')">
             <input formControlName="nome" type="text" autofocus required name="nome" cmailFormField
               class="mdl-textfield__input">
-            <span class="mdl-textfield__error">Informar um nome obrigatório!</span>
+            <span class="mdl-textfield__error" *ngIf="formCadastro.get('nome').errors?.minlength">minimo 3
+              caracters</span>
+
+            <span class="mdl-textfield__error" *ngIf="formCadastro.get('nome').errors?.maxlength">Permitido no maximo 8
+              caracters</span>
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('username')">
@@ -19,7 +23,8 @@
           <cmail-form-group [campo]="formCadastro.get('senha')">
             <input formControlName="senha" type="password" required name="senha" cmailFormField
               class="mdl-textfield__input">
-            <span class="mdl-textfield__error">Informar um senha obrigatório!</span>
+            <span class="mdl-textfield__error" *ngIf="formCadastro.get('senha').hasError('minlength')">Informar um senha
+              obrigatório!</span>
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('avatar')">
@@ -31,8 +36,10 @@
               Cadastrar
             </button>
           </div>
+          {{formCadastro.get('nome').errors | json }}
         </form>
       </div>
     </div>
   </main>
+
 </div>
