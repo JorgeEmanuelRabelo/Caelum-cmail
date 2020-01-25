@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpResponseBase } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpResponseBase, HttpErrorResponse } from '@angular/common/http';
+import { User } from 'src/app/models/user';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-cadastro',
@@ -21,15 +22,28 @@ export class CadastroComponent implements OnInit {
     telefone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{4}-?[0-9]{4,5}')]),
     avatar: new FormControl('', [Validators.required], this.validarImagem.bind(this))
   })
+  mensagemError = '';
 
-  constructor(private httpCliente: HttpClient) { }
+  constructor(private httpCliente: HttpClient, private roteador: Router) { }
 
   ngOnInit() {
   }
 
   handleCadastroUsuario() {
     if (this.formCadastro.valid) {
-      this.formCadastro.reset();
+      const userData = new User(this.formCadastro.value);
+      console.log('teste')
+      this.httpCliente.post('http://127.0.1.1:3200/users', userData).
+        subscribe((resp) => {
+          console.log(resp);
+          this.formCadastro.reset();
+          setTimeout(() => {
+            this.roteador.navigate(['']);
+          }),
+            (responseError: HttpErrorResponse) => {
+              this.mensagemError = responseError.error.body;
+            }
+        });
     } else {
       this.validaCamposFormulario();
     }
