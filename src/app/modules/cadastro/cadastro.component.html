@@ -27,8 +27,23 @@
               obrigatório!</span>
           </cmail-form-group>
 
+          <cmail-form-group [campo]="formCadastro.get('telefone')">
+            <input formControlName="telefone" type="telefone" required name="telefone" cmailFormField
+              class="mdl-textfield__input">
+            <span class="mdl-textfield__error" *ngIf="formCadastro.get('telefone').errors?.pattern">Informar um telefone
+              valido!</span>
+          </cmail-form-group>
+
           <cmail-form-group [campo]="formCadastro.get('avatar')">
-            <input formControlName="avatar" type="type" name="avatar" cmailFormField class="mdl-textfield__input">
+            <input formControlName="avatar" type="text" name="avatar" cmailFormField class="mdl-textfield__input">
+
+            <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').status === 'INVALID'">Imagem
+              invalida!</span>
+            <span class="mdl-textfield__error mdl-textfield__checking" *ngIf="formCadastro.get('avatar').status === 'PENDING'">Carregando
+              imagem....</span>
+            <span class="mdl-textfield__error mdl-textfield__valid" *ngIf="formCadastro.get('avatar').status === 'VALID'">Imagem
+              valida!</span>
+
           </cmail-form-group>
 
           <div class="mdl-card__actions">
@@ -36,10 +51,8 @@
               Cadastrar
             </button>
           </div>
-          {{formCadastro.get('nome').errors | json }}
         </form>
       </div>
     </div>
   </main>
-
 </div>

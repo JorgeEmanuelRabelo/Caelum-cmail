@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastro',
@@ -9,19 +11,18 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class CadastroComponent implements OnInit {
 
   formCadastro = new FormGroup({
-    nome: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(8)]),
+    nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
     username: new FormControl('', [
       Validators.required
     ]),
     senha: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      Validators.pattern('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/')
+      Validators.required
     ]),
-    avatar: new FormControl('')
+    telefone: new FormControl('', [Validators.required, Validators.pattern('[0-9]{4}-?[0-9]{4,5}')]),
+    avatar: new FormControl('', [Validators.required], this.validarImagem.bind(this))
   })
 
-  constructor() { }
+  constructor(private httpCliente: HttpClient) { }
 
   ngOnInit() {
   }
@@ -42,5 +43,12 @@ export class CadastroComponent implements OnInit {
     //   control.markAsTouched({ onlySelf: true });
     // });
 
+  }
+
+
+  validarImagem(campoAvatar: FormControl) {
+    return this.httpCliente.head(campoAvatar.value, { observe: 'response' }).
+      pipe(map((response: HttpResponseBase) => { return response.ok ? null : { urlInvalida: true } }),
+        catchError((error) => { return [{ urlInvalid: true }] }));
   }
 }
