@@ -34,9 +34,9 @@ export class CadastroComponent implements OnInit {
     if (this.formCadastro.valid) {
       const userData = new User(this.formCadastro.value);
       console.log('teste')
-      this.httpCliente.post('http://127.0.1.1:3200/users', userData).
+      this.httpCliente.post('http://localhost:3200/users', userData).
         subscribe((resp) => {
-          console.log(resp);
+          console.log(resp);    
           this.formCadastro.reset();
           setTimeout(() => {
             this.roteador.navigate(['']);

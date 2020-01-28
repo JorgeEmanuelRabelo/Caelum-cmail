@@ -8,26 +8,18 @@ import { LoginComponent } from './modules/login/login.component';
 import { CaixaDeEntradaComponent } from './modules/caixa-de-entrada/caixa-de-entrada.component';
 import { CadastroComponent } from './modules/cadastro/cadastro.component';
 import { modulesRoteamento } from './app.routes';
-import { FormGroupComponent } from './components/form-group/form-group.component';
-import { FormFieldDirective } from './components/form-group/form-field.directive';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './components/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    LoginComponent,
-    CadastroComponent,
-    CaixaDeEntradaComponent,
-    FormGroupComponent,
-    FormFieldDirective
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    modulesRoteamento,
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
