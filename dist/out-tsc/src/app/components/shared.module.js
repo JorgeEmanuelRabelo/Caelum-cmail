@@ -12,7 +12,8 @@ SharedModule = tslib_1.__decorate([
         declarations: [
             HeaderComponent,
             FormFieldDirective,
-            FormGroupComponent
+            FormGroupComponent,
+            CmailListItemComponent
         ],
         imports: [
             CommonModule,
@@ -22,7 +23,8 @@ SharedModule = tslib_1.__decorate([
         exports: [
             HeaderComponent,
             FormFieldDirective,
-            FormGroupComponent
+            FormGroupComponent,
+            CmailListItemComponent
         ]
     })
 ], SharedModule);

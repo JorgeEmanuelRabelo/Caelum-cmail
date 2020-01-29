@@ -13,15 +13,16 @@
             <cmail-form-group [campo]="email">
               <input #email="ngModel" [(ngModel)]="login.email" type="text" autofocus required name="login"
                 cmailFormField class="mdl-textfield__input">
-              <span class="mdl-textfield__error">informe um login valido!</span>
             </cmail-form-group>
 
             <cmail-form-group [campo]="password">
               <input #password="ngModel" [(ngModel)]="login.password" type="password" autofocus required name="senha"
                 cmailFormField class="mdl-textfield__input">
-              <span class="mdl-textfield__error">informe uma senha valida!</span>
+
             </cmail-form-group>
 
+            <span class="" *ngIf="mensagemError.includes('User not found') || mensagemError.includes('Invalid')">Usuário
+              ou senha invalido!</span>
             <div class="mdl-card__actions mdl-card--border">
               <a routerLink="/cadastro" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                 Primeiro login? Cadastre-se!

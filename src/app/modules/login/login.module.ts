@@ -4,6 +4,7 @@ import { LoginComponent } from './login.component';
 import { SharedModule } from 'src/app/components/shared.module';
 import { LoginRoutingModule } from './login-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginServicesService } from 'src/app/services/login-services.service';
 
 
 
@@ -17,6 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     LoginRoutingModule
   ],
-  exports: [LoginComponent]
+  exports: [LoginComponent],
+  providers: [
+    LoginServicesService
+  ]
 })
 export class LoginModule { }

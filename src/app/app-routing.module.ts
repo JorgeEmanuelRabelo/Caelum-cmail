@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CadastroModule } from './modules/cadastro/cadastro.module';
 import { LoginModule } from './modules/login/login.module';
 import { CaixaDeEntradaModule } from './modules/caixa-de-entrada/caixa-de-entrada.module';
+import { AuthGuard } from './guard/auth.guard';
 
 const rotas: Routes = [
   {
@@ -15,6 +16,7 @@ const rotas: Routes = [
   },
   {
     path: 'inbox',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./modules/caixa-de-entrada/caixa-de-entrada.module').then(m => CaixaDeEntradaModule)
   },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
@@ -26,6 +28,9 @@ const rotas: Routes = [
   ],
   exports: [
     RouterModule
+  ],
+  providers: [
+    AuthGuard
   ]
 })
 export class AppRoutingModule { }
